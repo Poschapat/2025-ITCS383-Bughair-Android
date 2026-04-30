@@ -8,8 +8,8 @@ plugins {
 // This block tells the scanner where to send the data
 sonar {
     properties {
-        property "sonar.projectKey", "YOUR_PROJECT_KEY" // Found in SonarQube dashboard
-        property "sonar.organization", "YOUR_ORG_NAME" // Found in SonarQube dashboard
+        property "sonar.projectKey", "2025-itcs383-emerald-mobile_phase2" // Found in SonarQube dashboard
+        property "sonar.organization", "2025-itcs383-emerald-mobile" // Found in SonarQube dashboard
         property "sonar.host.url", "https://sonarcloud.io"
         
         // Required for the >90% coverage check in D2
