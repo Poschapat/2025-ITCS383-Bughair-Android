@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SpaceHub Android App
 
 Native Android client for the **SpaceHub Co-Working Space Management System**.
@@ -163,17 +162,4 @@ Total: **60 test cases** across 4 test files, targeting **>90% coverage** on Vie
 | CR-04 | Adaptive | Responsive layout for various screen sizes |
 | CR-06 | Perfective | Quick reply buttons in SupportFragment |
 
----
-
-## Member 1 Contributions
-
-- Android project architecture setup (MVVM)
-- All 5 customer screens (Dashboard, Booking, My Bookings, Membership, Support)
-- Employee dashboard (reservations + ticket management)
-- Manager dashboard (daily summary)
-- Notification polling system (30-second interval)
-- 60 unit tests (AuthViewModel, CustomerViewModel, SessionManager, Repository)
-- GitHub Actions CI/CD pipeline
-- README documentation
-=======
 
