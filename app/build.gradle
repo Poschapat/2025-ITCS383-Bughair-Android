@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id "org.sonarqube" version "4.4.1.3373"
 }
 
 android {
@@ -80,4 +81,17 @@ dependencies {
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+// This block tells the scanner where to send the data
+sonar {
+    properties {
+        property "sonar.projectKey", "2025-itcs383-emerald-mobile_phase2" // Found in SonarQube dashboard
+        property "sonar.organization", "2025-itcs383-emerald-mobile" // Found in SonarQube dashboard
+        property "sonar.host.url", "https://sonarcloud.io"
+        
+        // Required for the >90% coverage check in D2
+        property "sonar.junit.reportPaths", "build/test-results/testDebugUnitTest"
+        property "sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/testDebugUnitTestCoverage/testDebugUnitTestCoverage.xml"
+    }
 }
