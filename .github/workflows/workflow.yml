@@ -1,41 +1,39 @@
-name: CI/CD Pipeline
+name: Android CI and Quality Check
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+    branches: [ main ]
 
 jobs:
-  # ────────────────────────────────────
-  # CI — Lint, Test & Build Docker Image
-  # ────────────────────────────────────
-  ci:
-    name: CI — Lint & Build
+  build:
+    name: Build and Analyze
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Repository
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-          cache-dependency-path: implementations/package-lock.json
+          fetch-depth: 0
 
-      - name: Install dependencies
-        working-directory: ./implementations
-        run: npm ci
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'gradle'
 
-      - name: Lint check
-        working-directory: ./implementations
-        run: npm run lint
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-      - name: Build Docker image (test)
-        run: docker build -t $(echo "${{ env.IMAGE_NAME }}" | tr '[:upper:]' '[:lower:]'):test ./implementations
+      # Step 1: Run Unit Tests and Generate Coverage (Required for D2)
+      - name: Run Tests and Generate Coverage Report
+        run: ./gradlew testDebugUnitTestCoverage # Ensure your project has a coverage plugin like Jacoco
+
+      # Step 2: SonarQube Analysis (Required for D1 & D2)
+      - name: SonarQube Scan
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: ./gradlew sonar --info
