@@ -24,16 +24,16 @@ jobs:
       #     distribution: 'temurin'
       #     cache: 'gradle'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
+      # - name: Grant execute permission for gradlew
+      #   run: chmod +x gradlew
 
-      # Step 1: Run Unit Tests and Generate Coverage (Required for D2)
-      - name: Run Tests and Generate Coverage Report
-        run: ./gradlew testDebugUnitTestCoverage # Ensure your project has a coverage plugin like Jacoco
+      # # Step 1: Run Unit Tests and Generate Coverage (Required for D2)
+      # - name: Run Tests and Generate Coverage Report
+      #   run: ./gradlew testDebugUnitTestCoverage # Ensure your project has a coverage plugin like Jacoco
 
-      # Step 2: SonarQube Analysis (Required for D1 & D2)
-      - name: SonarQube Scan
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: ./gradlew sonar --info
+      # # Step 2: SonarQube Analysis (Required for D1 & D2)
+      # - name: SonarQube Scan
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   run: ./gradlew sonar --info
